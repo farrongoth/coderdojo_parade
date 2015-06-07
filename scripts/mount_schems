@@ -1,0 +1,5 @@
+#!/bin/bash
+
+schems=~/.minetest/worlds/Parade_Client_World/schems
+
+sudo mount -t cifs //192.168.1.150/schems $schems -o guest,rw,uid=1000,gid=1000,file_mode=0777

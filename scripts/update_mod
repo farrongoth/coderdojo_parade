@@ -1,0 +1,18 @@
+#!/bin/bash
+
+dir=$(mktemp -d) && pushd $dir
+minetest=~/.minetest/mods
+url=http://users.darkone.co.uk/~farrongoth/ManchesterDojoMinetest
+
+if [ -e $minetest/parade_local ];
+then
+	rm -rf $minetest/parade_local
+fi
+
+wget $url/parade_local.zip
+unzip parade_local
+mv parade_local $minetest/
+
+echo "Parade Local mod updated!"
+popd
+rm -rf $dir

@@ -1,0 +1,64 @@
+#!/bin/bash
+
+minetest=~/.minetest
+dir=$(mktemp -d) && pushd $dir
+url=http://users.darkone.co.uk/~farrongoth/ManchesterDojoMinetest
+
+echo $dir
+
+if [ ! -e $minetest/mods ];
+then
+	echo "Adding minetest mods folder"
+	mkdir $minetest/mods
+fi
+
+if [ ! -e $minetest/worlds ];
+then
+	echo "Adding minetest worlds folder"
+	mkdir $minetest/worlds
+fi
+
+if [ ! -e $minetest/games ];
+then
+	echo "Adding minetest games folder"
+	mkdir $minetest/games
+fi
+
+echo "Getting mcrd_coderdojo package..."
+wget $url/mcr_coderdojo.zip
+unzip mcr_coderdojo.zip
+if [ -e $minetest/games/mcr_coderdojo ];
+then
+	rm -rf $minetest/games/mcr_coderdojo
+fi
+mv mcr_coderdojo $minetest/games
+
+echo "Getting Client World..."
+wget $url/Parade_Client_World.zip
+unzip Parade_Client_World.zip
+if [ -e $minetest/worlds/Parade_Client_World ];
+then
+	rm -rf $minetest/worlds/Parade_Client_World
+fi
+mv Parade_Client_World $minetest/worlds/
+
+echo "Getting Client Mod..."
+wget $url/parade_local.zip
+unzip parade_local.zip
+if [ -e $minetest/mods/parade_local ];
+then
+	rm -rf $minetest/mods/parade_local
+fi
+mv parade_local $minetest/mods
+
+echo "Getting mod update script..."
+wget $url/update_mod
+if [ -e $minetest/update_mod ];
+then
+	rm -f $minetest/update_mod
+fi
+mv update_mod $minetest/
+
+popd
+rm -rf $dir
+echo "Done."
