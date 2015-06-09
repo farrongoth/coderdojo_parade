@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ "$#" -ne 1 ]]; then
+    echo "usage:   install_server_with_git_to_linux [path-to-root-of-minetest-files]"
+    exit 1
+fi
+
+# As currently written this script relys on the client script being installed first
+
+cp -R ../worlds/Parade_Server_World $1/worlds
+cp -R ../mods/parade_server $1/mods
+
+echo Files copied to $1.  Please re-start Minetest to play
