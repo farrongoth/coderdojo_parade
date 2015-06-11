@@ -9,10 +9,7 @@ mkdir --parents $1/games
 mkdir --parents $1/worlds
 mkdir --parents $1/mods
 
-cp -R ../games/mcr_coderdojo.zip $1/games/
-pushd $1/games
-unzip mcr_coderdojo.zip
-popd
+cp -R ../games/mcr_coderdojo $1/games/mcr_coderdojo
  
 cp -R ../worlds/Parade_Client_World $1/worlds/Parade_Client_World
 
