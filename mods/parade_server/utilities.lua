@@ -2,6 +2,19 @@ list_dir = nil
 
 local last_files = nil
 
+function copy_table(orig)
+	local copy = {}
+	for key,val in pairs(orig) do
+		copy[key] = val
+	end
+
+	return copy
+end
+
+function clear_last_files()
+	last_files = nil;
+end
+
 function list_dir_diff(path)
 	local files = list_dir(path)
 	local diff = {}

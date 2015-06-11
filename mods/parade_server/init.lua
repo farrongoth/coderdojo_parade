@@ -13,8 +13,11 @@ parade_server.CameraTimer = 0
 ps = parade_server
 
 ps.schematic_folder = minetest.get_worldpath() .. "/schems"
-ps.air_region = {pos1={x=-141,y=4,z=94},pos2={x=-181,y=34,z=119}}
-ps.dirt_region = {pos1={x=-141,y=3,z=94},pos2={x=-181,y=-2,z=119}}
+ps.start_air_region = {pos1={x=-106,y=4,z=94},pos2={x=-146,y=34,z=119}}
+ps.start_dirt_region = {pos1={x=-106,y=3,z=94},pos2={x=-146,y=-2,z=119}}
+ps.air_region = {pos1={x=-106,y=4,z=94},pos2={x=-146,y=34,z=119}}
+ps.dirt_region = {pos1={x=-106,y=3,z=94},pos2={x=-146,y=-2,z=119}}
+ps.start_region = {x=-146,y=4,z=99}
 ps.next_region = {x=-146,y=4,z=99}
 ps.step_region = -35
 ps.float_max_x = 0

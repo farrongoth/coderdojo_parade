@@ -39,32 +39,39 @@ minetest.register_chatcommand("pCamDeltaTime",{
 	end
 })
 
-minetest.register_chatcommand("parade_server_control",{
-	params = "start/stop/update",
-	description = "Start Camera movement and allow force update of loaded parade",
+minetest.register_chatcommand("pRefresh",{
+	params = "",
+	description = "",
 	privs = {parade_server=true},
-	func = function (name,param)
-		if param == "start" then
-			parade_server.Started = true
-			if not ps.camera == nil then
-				ps.camera:setpos(ps.camera_start_pos)
-			end
-		elseif param == "stop" then
-			parade_server.Started = false
-		elseif param == "update" then
-			for key,val in ipairs(list_dir_diff(ps.schematic_folder)) do
-		    	worldedit.set(ps.air_region.pos1,ps.air_region.pos2,worldedit.normalize_nodename("air"))
-		    	worldedit.set(ps.dirt_region.pos1,ps.dirt_region.pos2,worldedit.normalize_nodename("dirt_with_grass"))
-				worldedit.pos1["WorldController"] = ps.next_region
-				loadSchematic(val)
-				ps.next_region.x = ps.next_region.x + ps.step_region
-				ps.air_region.pos1.x = ps.air_region.pos1.x + ps.step_region
-				ps.air_region.pos2.x = ps.air_region.pos2.x + ps.step_region
-				ps.dirt_region.pos1.x = ps.dirt_region.pos1.x + ps.step_region
-				ps.dirt_region.pos2.x = ps.dirt_region.pos2.x + ps.step_region
-			end
+	func = function (name)
+		clear_last_files()
+		ps.next_region = copy_table(ps.start_region)
 
-			ps.Timer = 0.0
+    	worldedit.set(ps.start_air_region.pos1,ps.air_region.pos2,worldedit.normalize_nodename("air"))
+    	worldedit.set(ps.start_dirt_region.pos1,ps.dirt_region.pos2,worldedit.normalize_nodename("dirt_with_grass"))
+		
+		ps.air_region.pos1 = copy_table(ps.start_air_region.pos1)
+		ps.air_region.pos2 = copy_table(ps.start_air_region.pos2)
+
+		ps.dirt_region.pos1 = copy_table(ps.start_dirt_region.pos1)
+		ps.dirt_region.pos2 = copy_table(ps.start_dirt_region.pos2)
+
+		ps.float_max_x = 0
+		ps.float_count = 0
+
+		for key,val in ipairs(list_dir_diff(ps.schematic_folder)) do
+			worldedit.pos1["WorldController"] = ps.next_region
+			loadSchematic(val)
+			ps.next_region.x = ps.next_region.x + ps.step_region
+			ps.air_region.pos1.x = ps.air_region.pos1.x + ps.step_region
+			ps.air_region.pos2.x = ps.air_region.pos2.x + ps.step_region
+			ps.dirt_region.pos1.x = ps.dirt_region.pos1.x + ps.step_region
+			ps.dirt_region.pos2.x = ps.dirt_region.pos2.x + ps.step_region
+			ps.float_count = ps.float_count + 1
 		end
+
+		ps.float_max_x = ps.camera_start_pos.x - ps.float_count*40 + 20
+
+		ps.Timer = 0.0
 	end
 })
