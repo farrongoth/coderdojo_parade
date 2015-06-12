@@ -9,10 +9,10 @@ mkdir --parents $1/games
 mkdir --parents $1/worlds
 mkdir --parents $1/mods
 
-cp -R ../games/mcr_coderdojo $1/games/mcr_coderdojo
+cp -R ../games/mcr_coderdojo $1/games/
  
-cp -R ../worlds/Parade_Client_World $1/worlds/Parade_Client_World
+cp -R ../worlds/Parade_Client_World $1/worlds/
 
-cp -R ../mods/parade_local $1/mods/parade_local
+cp -R ../mods/parade_local $1/mods/
 
 echo Files copied to $1.  Please re-start Minetest to play
