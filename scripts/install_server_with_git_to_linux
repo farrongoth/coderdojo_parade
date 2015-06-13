@@ -7,7 +7,7 @@ fi
 
 # As currently written this script relys on the client script being installed first
 
-cp -R ../worlds/Parade_Server_World $1/worlds
-cp -R ../mods/parade_server $1/mods
+cp -R ../worlds/Parade_Server_World $1/worlds/
+cp -R ../mods/parade_server $1/mods/
 
 echo Files copied to $1.  Please re-start Minetest to play
