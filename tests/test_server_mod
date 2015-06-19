@@ -1,0 +1,18 @@
+#!/bin/lua
+
+dofile("../mods/parade_server/utilities.lua")
+
+result_files = unix_listdir("test_files")
+expected_files = { "schem1", "schem2", "schem3", "aa_schem" }
+
+if #result_files ~= #expected_files then
+  print("FAIL")
+end
+
+for i, result_filename in pairs(result_files) do
+    if result_filename ~= expected_files[i] then
+        print("FAIL: " .. i .. " " .. result_filename .. " ~= " .. expected_files[i])
+    end
+end
+
+

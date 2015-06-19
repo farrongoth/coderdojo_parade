@@ -48,7 +48,7 @@ function unix_listdir(path)
 	print(path)
 	local p = string.gsub(path,"\\","/")
 
-	local ls = io.popen('ls ' .. p,'r')
+	local ls = io.popen('ls -tr ' .. p,'r')
 
 	local files = {};
 
