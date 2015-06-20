@@ -4,15 +4,24 @@ dofile("../mods/parade_server/utilities.lua")
 
 result_files = unix_listdir("test_files")
 expected_files = { "schem1", "schem2", "schem3", "aa_schem" }
+total_fails = 0
 
 if #result_files ~= #expected_files then
-  print("FAIL")
+  print("FAIL: expected #files " ..#expected_files .. ", actual #files " .. #result_files)
+  total_fails = total_fails + 1
 end
 
 for i, result_filename in pairs(result_files) do
     if result_filename ~= expected_files[i] then
         print("FAIL: " .. i .. " " .. result_filename .. " ~= " .. expected_files[i])
+        total_fails = total_fails + 1
     end
+end
+
+if total_fails == 0 then
+    print("PASS!!!")
+else
+    print("TOTAL FAILS = " .. total_fails)
 end
 
 
