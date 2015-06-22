@@ -2,26 +2,25 @@
 
 dofile("../mods/parade_server/utilities.lua")
 
+function setup_timestamps()
+    os.execute("touch -t  01010101 test_files/schem1")
+    os.execute("touch -t  01010102 test_files/schem2")
+    os.execute("touch -t  01010103 test_files/schem3")
+    os.execute("touch -t  01010104 test_files/aa_schem")
+end
+
+setup_timestamps()
+
 result_files = unix_listdir("test_files")
 expected_files = { "schem1", "schem2", "schem3", "aa_schem" }
-total_fails = 0
 
-if #result_files ~= #expected_files then
-  print("FAIL: expected #files " ..#expected_files .. ", actual #files " .. #result_files)
-  total_fails = total_fails + 1
-end
+assert(#result_files == #expected_files, "FAIL: expected #files " ..#expected_files .. ", actual #files " .. #result_files)
 
 for i, result_filename in pairs(result_files) do
-    if result_filename ~= expected_files[i] then
-        print("FAIL: " .. i .. " " .. result_filename .. " ~= " .. expected_files[i])
-        total_fails = total_fails + 1
-    end
+    assert(result_filename == expected_files[i], "FAIL: " .. i .. " " .. result_filename .. " ~= " .. expected_files[i])
 end
 
-if total_fails == 0 then
-    print("PASS!!!")
-else
-    print("TOTAL FAILS = " .. total_fails)
-end
+print("ALL TESTS HAVE PASSED!!!")
+
 
 
